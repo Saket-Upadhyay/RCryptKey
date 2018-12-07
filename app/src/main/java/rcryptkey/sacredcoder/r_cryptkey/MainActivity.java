@@ -78,6 +78,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences sharedPreferences= getSharedPreferences("rkeydata",MODE_PRIVATE);
                 new clientAction().execute(commin.getText().toString(),sharedPreferences.getString("ipaddr","127.0.0.1"));
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
+                } else {
+                    //deprecated in API 26
+                    vibrator.vibrate(250);
+                }
             }
         });
 
@@ -87,7 +94,14 @@ public class MainActivity extends AppCompatActivity {
         opt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               launchContactActivity();
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                launchContactActivity();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
+                } else {
+                    //deprecated in API 26
+                    vibrator.vibrate(250);
+                }
             }
         });
     }
